@@ -14,7 +14,7 @@ cross:
   provider: arm-gnu                # required to parse; unused by --target local
   source:                          # the embedder
     uri: https://github.com/toyota-connected/ivi-homescreen.git
-    rev: bb5a4bf2874d4ac2820324d275f8b258fda1186f # v3.0 when generated
+    rev: 266a2b97d5fb859b5fbb38a4a02586b390f09d89 # PROBE: jw/clang-stdlib-from-sysroot
   app:                             # the Flutter app; --app <dir> still wins
     uri: https://github.com/jwinarske/emb-sdk-ci-probe.git
     rev: 20f52c853343cf3c8a00abdee9298f74787a77e2
@@ -36,15 +36,7 @@ cross:
     # clang and lld compile against org.freedesktop.Sdk for that
     # architecture, so the app runs on the runtime named above.
     sdk-x86_64:
+      # PROBE: the embedder's own flatpak-sdk target (ivi-homescreen#887).
+      extends: source#flatpak-sdk-x86_64
       provider: flatpak-sdk
       triple: x86_64-flatpak-linux-gnu
-      # PROBE: hand-added. ivi-homescreen resolves its scanner with
-      # find_program when cross-compiling; its board targets build it this way.
-      augment:
-        - pkg: wayland-cxx-scanner
-          url: https://github.com/jwinarske/wayland-cxx-scanner/archive/9c86b8e7e87e2c9d5ff34939d044df4053e70970.tar.gz
-          build: cmake
-          host: true
-          defines:
-            WAYLAND_CXX_SCANNER_BUILD_TOOL: 'ON'
-            WAYLAND_CXX_SCANNER_TOOL_ONLY: 'ON'
