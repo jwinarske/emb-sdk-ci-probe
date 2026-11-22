@@ -31,7 +31,8 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq flatpak flatpak-builder binutils \
-            cmake ninja-build libsystemd-dev clang lld llvm
+            cmake ninja-build libsystemd-dev clang lld llvm \
+            libpugixml-dev  # PROBE: the host scanner's build dep
       # flatpak-builder runs each build command in a bwrap sandbox, which
       # needs unprivileged user namespaces. The runner's AppArmor denies
       # them by default.

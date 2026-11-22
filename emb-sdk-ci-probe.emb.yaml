@@ -38,3 +38,13 @@ cross:
     sdk-x86_64:
       provider: flatpak-sdk
       triple: x86_64-flatpak-linux-gnu
+      # PROBE: hand-added. ivi-homescreen resolves its scanner with
+      # find_program when cross-compiling; its board targets build it this way.
+      augment:
+        - pkg: wayland-cxx-scanner
+          url: https://github.com/jwinarske/wayland-cxx-scanner/archive/9c86b8e7e87e2c9d5ff34939d044df4053e70970.tar.gz
+          build: cmake
+          host: true
+          defines:
+            WAYLAND_CXX_SCANNER_BUILD_TOOL: 'ON'
+            WAYLAND_CXX_SCANNER_TOOL_ONLY: 'ON'
