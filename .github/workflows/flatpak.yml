@@ -57,7 +57,7 @@ jobs:
       # PROBE: extending source#flatpak-sdk-x86_64 resolves every target in
       # ivi-homescreen's .emb/, and its board targets extend the board library.
       - name: Fetch emb's board library
-        run: emb boards sync
+        run: emb boards sync --ref main
       - name: Build the flatpak
         run: >
           emb cross emb-sdk-ci-probe.emb.yaml --target sdk-x86_64 --build
