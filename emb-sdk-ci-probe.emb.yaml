@@ -14,7 +14,7 @@ cross:
   provider: arm-gnu                # required to parse; unused by --target local
   source:                          # the embedder
     uri: https://github.com/toyota-connected/ivi-homescreen.git
-    rev: 266a2b97d5fb859b5fbb38a4a02586b390f09d89 # PROBE: jw/clang-stdlib-from-sysroot
+    rev: 0222f18cfe6bc3b156f55e429f4fdbb85ba8e2ce # v3.0 when generated
   app:                             # the Flutter app; --app <dir> still wins
     uri: https://github.com/jwinarske/emb-sdk-ci-probe.git
     rev: 20f52c853343cf3c8a00abdee9298f74787a77e2
@@ -35,8 +35,10 @@ cross:
     # Built against the flatpak SDK rather than this machine: the host
     # clang and lld compile against org.freedesktop.Sdk for that
     # architecture, so the app runs on the runtime named above.
+    # Each extends the embedder's own flatpak-sdk target, which
+    # brings what it needs to build against the SDK. The provider is
+    # named again, as the shared one above would otherwise win.
     sdk-x86_64:
-      # PROBE: the embedder's own flatpak-sdk target (ivi-homescreen#887).
-      extends: source#flatpak-sdk-x86_64
+      extends: 'source#flatpak-sdk-x86_64'
       provider: flatpak-sdk
       triple: x86_64-flatpak-linux-gnu

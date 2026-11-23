@@ -41,9 +41,14 @@ runtime can produce a flatpak that will not start, because it needs a newer
 glibc than the runtime has; these targets cannot. They also need none of the
 embedder's `-dev` packages here.
 
+Each extends the embedder's own `flatpak-sdk-<arch>` target
+(`source#flatpak-sdk-<arch>`), which brings what the embedder needs to
+build against the SDK.
+
 This machine compiles with its own clang, so it needs `clang`, `lld` and
-`llvm` (the package names on Fedora and Ubuntu), plus the SDK and runtime for
-each architecture:
+`llvm` (the package names on Fedora and Ubuntu), and `libpugixml-dev` for
+the host tools the embedder builds, plus the
+SDK and runtime for each architecture:
 
 ```sh
 flatpak install --user -y flathub org.freedesktop.Platform/x86_64/26.08 org.freedesktop.Sdk/x86_64/26.08
